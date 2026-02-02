@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Clone</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <a href="/" class="logo">
+            <i class="fab fa-spotify"></i>
+            <span>Spotify</span>
+        </a>
+        <a href="/"><i class="fas fa-home"></i> Home</a>
+        <a href="/add.html" class="active"><i class="fas fa-plus"></i> Add Track</a>
+        <a href="/manage.html"><i class="fas fa-cog"></i> Manage Library</a>
+    </nav>
+
+    <main>
+        <header>
+            <h1>Add New Track</h1>
+        </header>
+        
+        <div class="form-container">
+            <form id="addSongForm">
+                <div class="form-group">
+                    <label>Song Title</label>
+                    <input type="text" id="title" placeholder="e.g. Blinding Lights" required>
+                </div>
+                <div class="form-group">
+                    <label>Artist</label>
+                    <input type="text" id="artist" placeholder="e.g. The Weeknd" required>
+                </div>
+                <div class="form-group">
+                    <label>Album</label>
+                    <input type="text" id="album" placeholder="e.g. After Hours">
+                </div>
+                <div class="form-group">
+                    <label>Duration</label>
+                    <input type="text" id="duration" placeholder="e.g. 3:20">
+                </div>
+                <div class="form-group">
+                    <label>Cover Image URL</label>
+                    <input type="url" id="coverUrl" placeholder="https://...">
+                </div>
+                <button type="submit" class="btn">Add to Library</button>
+            </form>
+        </div>
+    </main>
+
+    <script>
+        document.getElementById('addSongForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const songData = {
+                title: document.getElementById('title').value,
+                artist: document.getElementById('artist').value,
+                album: document.getElementById('album').value,
+                duration: document.getElementById('duration').value,
+                coverUrl: document.getElementById('coverUrl').value
+            };
+
+            try {
+                const response = await fetch('/api/songs', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(songData)
+                });
+
+                if (response.ok) {
+                    alert('Song added successfully!');
+                    window.location.href = '/';
+                } else {
+                    alert('Error adding song.');
+                }
+            } catch (error) {
+                alert('Connection error.');
+            }
+        });
+    </script>
+</body>
+</html>
