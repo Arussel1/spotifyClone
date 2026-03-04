@@ -1,44 +1,63 @@
-#  Our Spotify Clone (CPS630 - Assignment 1)
+# Spotify Clone — (CPS630 - Assignment 2)
 
-## Overview
-Welcome to our Spotify web app! We built this for our CPS630 assignment to show off a multi-page interface that talks to a real Node.js server. It's a music library manager. You can browse through a grid of songs, add your own favorites using a form, and "manage" the library by deleting tracks.
+A full-stack Spotify clone built with the MERN stack (MongoDB, Express, React, Node.js).
+This project allows managing a music library with Create, Read, Update, and Delete operations.
 
-## Future Improvements
-If we had more time, we'd love to actually plug in the Spotify Web API to play real music, add a search bar, and maybe move the data from a simple JSON object into a proper database
+## Architecture
 
----
+The application is split into two independent services:
 
-##  How to Run & Use
+- **Backend** (`/backend`): Node.js + Express REST API with MongoDB (Mongoose)  
+- **Frontend** (`/frontend`): React + Vite application with React Router  
 
-### Getting Started
-We kept it simple with just JS, HTML, and CSS. 
+## Prerequisites
 
-1.  **Install dependencies**:
-    ```bash
-    npm install
-    ```
-2.  **Fire up the server**:
-    ```bash
-    node server.js
-    ```
-3.  **Check it out**: Head over to [http://localhost:3000](http://localhost:3000) in your favorite browser.
+- Node.js (v18+ recommended)
+- MongoDB running locally on default port `27017`
 
-### How to Use
-- **The Library (Home)**: You'll see all your saved tracks in a responsive grid. Hover over them to see the play button.
-- **Adding Music**: Use the "Add Track" link in the sidebar. Fill in the title, artist, and a link to a cover image.
-- **Cleanup**: If you made a typo or want to refresh the library, go to "Manage Library" and hit Delete.
----
+## Quick Start
 
-## Reflection
+### 1. Start the Backend API
 
-### What we're submitting
-- A Node/Express backend handles all our GET, POST, and DELETE requests.
-- Three distinct pages (Home, Add, Manage) plus a custom 404 page.
-- A design using Vanilla CSS.
+```bash
+cd backend
+npm install
+npm run start
+```
+The backend runs on `http://localhost:3000`.  
+> *Note: On the first run, if the database is empty, it will automatically test-seed 5 popular songs.*
 
-### The Ups and Downs
-**The Successes**:
-Honestly, getting the Spotify aesthetic was a huge win for us. It feels premium even though it's "just" an assignment. Also, keeping the code modular means it'll be easy to have a  database later.
+### 2. Start the Frontend App
 
-**The Challenges**:
-Handling the 404 routing in Express took sometimes to get right, especially making sure it didn't conflict with our static files. Also, making the grid responsive without using a grid framework like Bootstrap was a fun CSS workout, but we're really happy with how it turned out!
+Open a new terminal session:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+The frontend runs on `http://localhost:5173`.  
+It automatically proxies `/api` requests to the backend server.
+
+## Running Tests
+
+### Backend Tests
+The backend uses Jest, Supertest, and an in-memory MongoDB server for testing. To run the tests:
+```bash
+cd backend
+npm test
+```
+
+### Frontend Tests
+The frontend uses Vitest and React Testing Library for testing. To run the tests:
+```bash
+cd frontend
+npm test
+```
+
+## Features
+
+- **Home View**: Browse library with real-time text filtering
+- **Add Track**: Form to create new songs with live cover art preview
+- **Manage Library**: Admin table with inline editing and Delete
+- **Premium UI**: Spotify-themed dark mode design, hover animations, toast notifications

@@ -22,19 +22,23 @@ app.get('/api/health', (req, res) => {
 });
 
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/spotifyClone';
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3000;
 
-mongoose.connect(MONGO_URI)
-  .then(async () => {
-    console.log('Connected to MongoDB');
+if (process.env.NODE_ENV !== 'test') {
+  mongoose.connect(MONGO_URI)
+    .then(async () => {
+      console.log('Connected to MongoDB');
 
-    await seedDatabase();
+      await seedDatabase();
 
-    app.listen(PORT, () => {
-      console.log(`Backend server running at http://localhost:${PORT}`);
+      app.listen(PORT, () => {
+        console.log(`Backend server running at http://localhost:${PORT}`);
+      });
+    })
+    .catch((err) => {
+      console.error('MongoDB connection error:', err.message);
+      process.exit(1);
     });
-  })
-  .catch((err) => {
-    console.error('MongoDB connection error:', err.message);
-    process.exit(1);
-  });
+}
+
+module.exports = app;

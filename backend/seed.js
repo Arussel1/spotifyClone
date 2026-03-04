@@ -20,21 +20,21 @@ const testSongs = [
     artist: 'Dua Lipa',
     album: 'Future Nostalgia',
     duration: '3:23',
-    coverUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f5/Dua_Lipa_-_Levitating.png'
+    coverUrl: 'https://upload.wikimedia.org/wikipedia/en/c/c6/Dua_Lipa_Levitating_Solo_Single_Cover.jpeg'
   },
   {
     title: 'Shape of You',
     artist: 'Ed Sheeran',
     album: '÷ (Divide)',
     duration: '3:53',
-    coverUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b4/Ed_Sheeran_-_Shape_of_You.png'
+    coverUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b4/Shape_Of_You_%28Official_Single_Cover%29_by_Ed_Sheeran.png'
   },
   {
     title: 'Bad Guy',
     artist: 'Billie Eilish',
     album: 'When We All Fall Asleep, Where Do We Go?',
     duration: '3:14',
-    coverUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7e/Billie_Eilish_-_Bad_Guy.png'
+    coverUrl: 'https://upload.wikimedia.org/wikipedia/en/3/33/Billie_Eilish_-_Bad_Guy.png'
   }
 ];
 
