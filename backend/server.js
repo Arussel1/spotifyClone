@@ -1,12 +1,32 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const http = require('http');
+const { Server } = require('socket.io');
 require('dotenv').config();
 
+const authRoutes = require('./routes/authRoutes');
 const songRoutes = require('./routes/songRoutes');
 const seedDatabase = require('./seed');
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: 'http://localhost:5173',
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true
+  }
+});
+
+app.set('io', io);
+
+io.on('connection', (socket) => {
+  console.log('New client connected:', socket.id);
+  socket.on('disconnect', () => {
+    console.log('Client disconnected:', socket.id);
+  });
+});
 
 app.use(cors({
   origin: 'http://localhost:5173',
@@ -15,6 +35,7 @@ app.use(cors({
 app.use(express.json());
 
 
+app.use('/api/auth', authRoutes);
 app.use('/api/songs', songRoutes);
 
 app.get('/api/health', (req, res) => {
@@ -31,7 +52,7 @@ if (process.env.NODE_ENV !== 'test') {
 
       await seedDatabase();
 
-      app.listen(PORT, () => {
+      server.listen(PORT, () => {
         console.log(`Backend server running at http://localhost:${PORT}`);
       });
     })
