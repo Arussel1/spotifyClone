@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Song = require('./models/Song');
+const User = require('./models/User');
 const seedDatabase = require('./seed');
 require('dotenv').config();
 
@@ -11,6 +12,8 @@ mongoose.connect(MONGO_URI)
     
     console.log('Deleting all songs to clean the database...');
     await Song.deleteMany({});
+    console.log('Deleting all users...');
+    await User.deleteMany({});
     console.log('Database cleaned.');
 
     console.log('Triggering the seed script...');

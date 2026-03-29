@@ -1,4 +1,6 @@
 const Song = require('./models/Song');
+const User = require('./models/User');
+const bcrypt = require('bcryptjs');
 
 const testSongs = [
   {
@@ -43,10 +45,20 @@ const testSongs = [
  */
 async function seedDatabase() {
   try {
+    let user = await User.findOne({ username: 'testuser' });
+    if (!user) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash('password123', salt);
+      user = new User({ username: 'testuser', password: hashedPassword });
+      await user.save();
+      console.log('Created default user: testuser');
+    }
+
     const count = await Song.countDocuments();
 
     if (count === 0) {
-      await Song.insertMany(testSongs);
+      const songsWithUser = testSongs.map(song => ({ ...song, userId: user._id }));
+      await Song.insertMany(songsWithUser);
       console.log(`Database seeded with ${testSongs.length} test songs.`);
     } else {
       console.log(`Database already has ${count} song(s). Skipping seed.`);
