@@ -669,3 +669,79 @@ body {
 .main-content::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* ============================
+   Forms & Auth
+   ============================ */
+
+.auth-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.btn-logout {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  transition: all var(--transition);
+}
+
+.btn-logout:hover {
+  color: var(--text-primary);
+  background: var(--bg-elevated);
+}
+
+/* ============================
+   Socket Notifications
+   ============================ */
+
+.socket-toast {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+  background: var(--bg-elevated);
+  border-left: 4px solid var(--green-primary);
+  padding: 16px 20px;
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-elevated);
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: slideInRight 0.3s ease forwards;
+}
+
+.socket-toast i {
+  color: var(--green-primary);
+  font-size: 18px;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
